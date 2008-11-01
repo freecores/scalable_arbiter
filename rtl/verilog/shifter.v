@@ -17,21 +17,21 @@
 `timescale 1ns / 1ps
 
 module shifter #(
-	parameter count = 0,
+	parameter depth = 0,
 	parameter width = 0
 )(
 	input enable,
 	input load,
 	
-	input [(count*width)-1:0] parallel_in,
+	input [(depth*width)-1:0] parallel_in,
 	input [width-1:0] serial_in,
-	output [(count*width)-1:0] parallel_out,
+	output [(depth*width)-1:0] parallel_out,
 	output [width-1:0] serial_out,
 	
 	input clock
 );
 
-reg [(count*width)-1:0] internal;
+reg [(depth*width)-1:0] internal;
 
 assign parallel_out = internal;
 assign serial_out = internal[width-1:0];
@@ -42,11 +42,11 @@ always @(posedge clock)
 begin
 	if(enable)
 	begin
-		internal[(count*width)-1-:width] <= load
-			? parallel_in[(count*width)-1-:width]
+		internal[(depth*width)-1-:width] <= load
+			? parallel_in[(depth*width)-1-:width]
 			: serial_in;
 		
-		for(i = count - 1; i > 0; i = i - 1)
+		for(i = depth - 1; i > 0; i = i - 1)
 			internal[(i*width)-1-:width] <= load
 				? parallel_in[(i*width)-1-:width]
 				: internal[((i+1)*width)-1-:width];

@@ -76,7 +76,7 @@ module demo_arbiter (
 wire [`ARB_WIDTH-1:0] req, grant;
 
 shifter #(
-	.count(`ARB_WIDTH/`PORT_WIDTH),
+	.depth(`ARB_WIDTH/`PORT_WIDTH),
 	.width(`PORT_WIDTH)
 ) in_shifter (
 	.enable(enable_in),
@@ -105,7 +105,7 @@ arbiter #(
 );
 
 shifter #(
-	.count(`ARB_WIDTH/`PORT_WIDTH),
+	.depth(`ARB_WIDTH/`PORT_WIDTH),
 	.width(`PORT_WIDTH)
 ) out_shifter (
 	.enable(enable_out),
