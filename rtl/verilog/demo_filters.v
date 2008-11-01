@@ -35,7 +35,7 @@ module demo_filters (
 wire usec_tick, msec_tick, interconnect;
 
 pulser #(
-	.count(`CLOCK_MHZ)
+	.count(`CLOCK_MHZ-1)
 ) usec_pulser (
 	.enable(1'b1),
 	.out(usec_tick),
