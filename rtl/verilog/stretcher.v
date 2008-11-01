@@ -36,11 +36,12 @@ module stretcher #(
 wire rising;
 wire falling;
 
-assign rising = out & ~in;
-assign falling = ~out & in;
+assign rising = ~out & in;
+assign falling = out & ~in;
 
-// counter
-parameter counter_width = max(clog2(high_count), clog2(low_count));
+/// counter width is the maximum size of the loaded value
+parameter counter_width =
+	max(flog2(high_count - 1) + 1, flog2(low_count - 1) + 1);
 
 reg [counter_width:0] counter;
 reg [counter_width-1:0] counter_load;

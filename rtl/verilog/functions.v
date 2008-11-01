@@ -30,6 +30,23 @@ begin
 end
 endfunction
 
+// compute the log base 2 of a number, rounded down to the
+// nearest whole number
+function integer flog2 (
+	input integer number
+);
+integer i;
+integer count;
+begin
+	flog2 = 0;
+	for(i = 0; i < 32; i = i + 1)
+	begin
+		if(number&(1<<i))
+			flog2 = i;
+	end
+end
+endfunction
+
 // compute the log base 2 of a number, rounded up to the
 // nearest whole number
 function integer clog2 (

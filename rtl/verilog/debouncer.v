@@ -44,11 +44,12 @@ end
 wire rising;
 wire falling;
 
-assign rising = in_reg[1] & ~in_reg[0];
-assign falling = ~in_reg[1] & in_reg[0];
+assign rising = ~in_reg[1] & in_reg[0];
+assign falling = in_reg[1] & ~in_reg[0];
 
-// counter
-parameter counter_width = max(clog2(high_count), clog2(low_count));
+// counter width is the maximum size of the loaded value
+parameter counter_width =
+	max(flog2(high_count - 1) + 1, flog2(low_count - 1) + 1);
 
 reg [counter_width:0] counter;
 reg [counter_width-1:0] counter_load;

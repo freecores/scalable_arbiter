@@ -29,7 +29,8 @@ module pulser #(
 
 `include "functions.v"
 
-parameter counter_width = clog2(count);
+// counter width is the size of the loaded value
+parameter counter_width = flog2(count - 1) + 1;
 parameter [counter_width-1:0] counter_load = ~(count - 1);
 
 reg [counter_width:0] counter;
